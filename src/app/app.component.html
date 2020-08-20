@@ -1,0 +1,22 @@
+
+<ng-container *ngFor="let comment of comments">
+  <ng-container *ngTemplateOutlet="commentSection; context: { data: comment }">
+  </ng-container>
+</ng-container>
+<ng-template #commentSection let-comment="data">
+    <div class="comment">
+      <div class="comment-content">
+      <div>
+        {{comment.text}}
+      </div>
+        <span >{{comment.user.firstName}}</span>
+        <span>{{comment.createdOn | date}}</span>
+      </div>
+    </div>
+    <ng-container *ngIf="comment.children && comment.children.length > 0">
+    <div class="child-comment"*ngFor="let comment of comment.children">
+      <ng-container *ngTemplateOutlet="commentSection; context: { data: comment }">
+      </ng-container>
+    </div>
+    </ng-container>
+</ng-template>
